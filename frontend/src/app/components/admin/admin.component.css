@@ -1,0 +1,116 @@
+/* Contenedor principal */
+.admin-container {
+    padding: 80px;
+    background-color: #f9f9f9;
+}
+
+/* Título de la sección */
+.section-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-align: center;
+    color: #333;
+}
+
+/* Grid de solicitudes */
+.requests-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Ajustar el tamaño mínimo */
+    gap: 20px;
+    max-width: 1200px; /* Limitar el ancho máximo del grid */
+    margin: 0 auto; /* Centrar el grid */
+}
+
+/* Tarjeta de solicitud */
+.request-card {
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+    transition: transform 0.2s ease-in-out;
+    max-width: 300px; /* Limitar el tamaño máximo de cada tarjeta */
+    margin: 0 auto; /* Centrar la tarjeta si es la única */
+}
+
+.request-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Imagen del producto */
+.request-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+/* Detalles del producto */
+.request-details {
+    margin-top: 10px;
+}
+
+.product-name {
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.product-company,
+.product-price {
+    font-size: 14px;
+    color: #666;
+    margin: 2px 0;
+}
+
+/* Botones de acción */
+.request-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+
+.btn {
+    padding: 10px 15px;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.accept-btn {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.accept-btn:hover {
+    background-color: #45a049;
+}
+
+.decline-btn {
+    background-color: #f44336;
+    color: #fff;
+}
+
+.decline-btn:hover {
+    background-color: #e53935;
+}
+
+/* Mensaje cuando no hay solicitudes */
+.no-requests {
+    text-align: center;
+    margin-top: 50px;
+}
+
+.message-all-processed {
+    font-size: 20px;
+    color: #666;
+}

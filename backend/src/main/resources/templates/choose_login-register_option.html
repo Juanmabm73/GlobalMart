@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Choose Your Login Option</title>
+
+    <!-- /* Itim Font */ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Itim&display=swap"
+        rel="stylesheet">
+
+    <!-- Style Link -->
+    <link rel="stylesheet" href="/css/choose_login_option.css">
+
+</head>
+
+<body>
+    <div class="popup_container">
+        <div class="overlay"></div>
+
+        <div class="content">
+            <h3 class="login-register_options_title"><!-- Dinamico con JS -->
+            </h3>
+
+            <a href="/oauth2/authorization/google">
+            <button class="login_button google_login_button">
+                <img src="/images/google_logo.png" alt="" class="button_image">
+                <p class="button_text">with Google</p>
+            </button></a>
+
+
+            <button class="login_button email_login_button">
+                <img src="/images/email_logo.png" alt="" class="button_image">
+                <p class="button_text">with Email</p>
+            </button>
+
+        </div>
+
+        {{> login}}
+        {{> register}}
+
+    </div>
+</body>
+
+</html>

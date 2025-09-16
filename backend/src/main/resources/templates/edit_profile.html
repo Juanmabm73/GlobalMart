@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+
+    <!-- /* CSS */ -->
+    <link rel="stylesheet" href="css/edit_profile.css">
+
+    <!-- /* Itim Font */ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Itim&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    {{>components/nav}}
+
+    <div class="main_form_div">
+        <form class="edit_profile_form" action="/edit_profile" method="POST">
+            <h1>Edit Profile</h1>
+
+            <!-- Añadir el campo oculto userId -->
+            <input type="hidden" name="userId" value="{{userId}}">
+
+            <div class="input_div">
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" value="{{username}}">
+            </div>
+
+            <div class="input_div">
+                <label for="name">Name:</label>
+                <input type="text" name="name" id="name" value="{{name}}">
+            </div>
+
+            <div class="input_div">
+                <label for="email">Email:</label>
+                <input type="email" name="email" id="email" value="{{email}}">
+            </div>
+
+            <div class="input_div">
+                <label for="password">Password:</label>
+                <input type="password" name="password" id="password">
+            </div>
+
+            <div class="input_div">
+                <label for="confirmPassword">Confirm Password:</label>
+                <input type="password" name="confirmPassword" id="confirmPassword">
+            </div>
+
+            <div class="buttons_div">
+                <a class="back_button" href="/profile">Back</a>
+                <input class="submit_button" type="submit" value="Save">
+            </div>
+        </form>
+    </div>
+
+    {{>components/footer}}
+
+    <script>
+        // Password validation
+        document.querySelector('form').addEventListener('submit', function (e) {
+            const password = document.getElementById('password').value;
+            const confirmPassword = document.getElementById('confirmPassword').value;
+
+            if (password && password !== confirmPassword) {
+                e.preventDefault();
+                alert('Las contraseñas no coinciden');
+            }
+        });
+    </script>
+</body>
+
+</html>

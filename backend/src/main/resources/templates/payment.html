@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+
+    <!-- /* Itim Font */ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Itim&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="/css/payment.css">
+</head>
+
+<body>
+
+    {{> components/nav}}
+
+    <div class="main_div">
+        <h2 class="payment_title">Payment</h2>
+        <form action="/pay_cart" class="payment_form">
+            <div class="address_form">
+                <h3 class="address_title">Address</h3>
+                <div class="address_input">
+                    <input type="text" name="address" id="address" placeholder="Address" required>
+                </div>
+                <div class="city_input">
+                    <input type="text" name="city" id="city" placeholder="City" required>
+                </div>
+                <div class="state_input">
+                    <input type="text" name="state" id="state" placeholder="State" required>
+                </div>
+                <div class="zip_input">
+                    <input type="text" name="zip" id="zip" placeholder="Zip" required>
+                </div>
+            </div>
+
+            <div class="payment_form">
+                <h3 class="payment_title">Payment</h3>
+                <div class="card_input">
+                    <input type="text" name="card" id="card" placeholder="Card Number" required>
+                </div>
+                <div class="exp_input">
+                    <input type="text" name="exp" id="exp" placeholder="Expiration Date" required>
+                </div>
+                <div class="cvv_input">
+                    <input type="text" name="cvv" id="cvv" placeholder="CVV" required>
+                </div>
+                <div class="name_owner_input">
+                    <input type="text" name="card_owner" id="cvv" placeholder="Name of card owner" required>
+                </div>
+            </div>
+
+            <div class="submit_div">
+                <button type="submit" class="submit_button">Pay</button>
+            </div>
+        </form>
+    </div>
+
+    {{> components/footer}}
+
+</body>
+
+</html>

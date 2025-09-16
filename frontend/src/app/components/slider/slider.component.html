@@ -1,0 +1,11 @@
+<div class="main_slider_div">
+    <div class="slider" (mouseover)="stopAutoSlide()" (mouseout)="startAutoSlide()">
+        <img *ngFor="let slide of slides; let i = index" [src]="slide.imageUrl" [alt]="slide.alt" class="slide_image"
+            [ngClass]="{'active': currentSlide === i}">
+    </div>
+
+    <div class="buttons">
+        <button class="prev" (click)="slidePrev()"><i class="bi bi-chevron-left"></i></button>
+        <button class="next" (click)="slideNext()"><i class="bi bi-chevron-right"></i></button>
+    </div>
+</div>

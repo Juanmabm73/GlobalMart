@@ -1,0 +1,33 @@
+<link rel="stylesheet" href="/css/reviews.css">
+
+<div id="div_reviews">
+    {{#logged}}
+    {{#isUser}}
+    <form action="/product/{{id}}/new_review" method="POST" id="review-form">
+        <h2 class="title-Reviews">Write your own review</h2>
+        <label for="calification">Calification (1-5):</label>
+        <input type="number" id="calification" name="calification" min="1" max="5" required>
+
+        <label for="comment">Comment:</label>
+        <textarea id="comment" name="comment" required></textarea>
+
+        <button type="submit">Send Review</button>
+    </form>
+    {{/isUser}}
+    {{/logged}}
+
+    <h2 class="title-Reviews">Reviews</h2>
+    <div class="reviews">
+        {{#reviews}}
+        <div class="review">
+            <p>{{username}}</p>
+            <p>{{calification}}</p>
+            <p>{{comment}}</p>
+        </div>
+        {{/reviews}}
+
+        {{^reviews}}
+        <p class="no-reviews">No reviews for this product</p>
+        {{/reviews}}
+    </div>
+</div>

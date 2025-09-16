@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="ISO-8859-1">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Products | Global Mart</title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/products.css">
+    <link rel="stylesheet" href="/css/footer.css">
+
+    <!-- Itim Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Itim&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- ----------------- Nav ----------------- -->
+    {{>./components/nav}}
+
+    <!-- ----------------- Products ----------------- -->
+    {{^isCompany}}
+    <div class="main_products_div">
+        <div class="product_section_container">
+            {{#tittle}}
+            <h2 class="section_title">{{type}}</h2>
+            {{/tittle}}
+            <div class="products_container" id="productsContainer">
+                {{#allProds}}
+                <div class="products_container">
+                    <div class="product">
+                        <a href="/product/{{id}}">
+                            <img src="{{imageBase64}}" alt="{{name}}" class="product_image">
+                            <h3 class="product_title">{{name}}</h3>
+                            <p class="product_price">{{price}}€</p>
+                        </a>
+                    </div>
+                </div>
+                {{/allProds}}
+                {{^allProds}}
+                <h3>No products registered</h3>
+                {{/allProds}}
+
+            </div>
+        </div>
+    </div>
+    {{/isCompany}}
+    {{#isCompany}}
+    <div class="main_products_div">
+        <div class="product_section_container">
+            {{#tittle}}
+            <h2 class="section_title">{{type}}</h2>
+            {{/tittle}}
+            <div class="products_container" id="productsContainer">
+                {{#allCompanyProds}}
+                <div class="product"> <!-- Removed the nested products_container div -->
+                    <a href="/product/{{id}}">
+                        <img src="{{imageBase64}}" alt="{{name}}" class="product_image">
+                        <h3 class="product_title">{{name}}</h3>
+                        <p class="product_price">{{price}}€</p>
+                    </a>
+                </div>
+                {{/allCompanyProds}}
+                {{^allCompanyProds}}
+                <h3>No products registered</h3>
+                {{/allCompanyProds}}
+            </div>
+        </div>
+    </div>
+    {{/isCompany}}
+
+    {{#hasNextProd}}
+    {{^tittle}}
+    {{^isCompany}}
+    <button id="loadMoreBtn" class="load-more-btn" onclick="loadMoreAll()">Load More</button>
+    {{/isCompany}}
+    {{/tittle}}
+    {{#tittle}}
+    <button id="loadMoreTypes" class="load-more-btn" onclick="loadMoreTypes('{{type}}')">Load More</button>
+    {{/tittle}}
+    {{#isCompany}}
+    <button id="loadMoreCompany" class="load-more-btn" onclick="loadMoreCompany('{{companyName}}')">Load More</button>
+    {{/isCompany}}
+    {{/hasNextProd}}
+
+
+    <!-- ----------------- Footer ----------------- -->
+    <br>
+    {{>./components/footer}}
+
+
+</body>
+<script src="/js/loadMore.js"></script>
+<script src="/js/loadMoreTypes.js"></script>
+<script src="/js/loadMoreCompany.js"></script>
+
+</html>

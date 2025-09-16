@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Searching ...</title>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/search.css">
+
+    <!-- Itim Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Itim&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- ----------------- Nav ----------------- -->
+    {{>./components/nav}}
+
+    <!-- ----------------- Search Results ----------------- -->
+    <div class="main_search_div">
+        <div class="search_results_div">
+            <h2 class="title_search_results">
+                Search Results:
+                {{#searchQuery}}
+                {{searchQuery}}
+                {{/searchQuery}}
+                {{^searchQuery}}
+                {{#type}}
+                Category: {{type}}
+                {{/type}}
+                {{^type}}
+                All products
+                {{/type}}
+                {{/searchQuery}}
+            </h2>
+            <div class="results_div">
+                {{#products}}
+                <div class="product_div">
+                    <!-- Aquí debe ir el contenido de cada producto -->
+                    <a href="/product/{{id}}">
+                        <img src="{{imageBase64}}" alt="{{name}}" class="product_image">
+                        <h3>{{name}}</h3>
+                        <p>Price: {{price}}€</p>
+                        <p>Category: {{type}}</p>
+                    </a>
+                </div>
+                {{/products}}
+
+                {{^products}}
+                <div class="no_results">
+                    <p>No products found matching your search criteria.</p>
+                </div>
+                {{/products}}
+            </div>
+        </div>
+    </div>
+
+    <!-- ----------------- Footer ----------------- -->
+    {{>./components/footer}}
+
+
+</body>
+
+</html>

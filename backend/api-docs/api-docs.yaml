@@ -1,0 +1,1620 @@
+openapi: 3.1.0
+info:
+  title: OpenAPI definition
+  version: v1
+
+components:
+  schemas:
+    OrderDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        total:
+          type: number
+          format: double
+        products:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductDTO"
+        userName:
+          type: string
+    ProductDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        type:
+          type: string
+        name:
+          type: string
+        company:
+          type: string
+        price:
+          type: number
+          format: double
+        description:
+          type: string
+        stock:
+          type: integer
+          format: int32
+        isAccepted:
+          type: boolean
+        date:
+          type: string
+          format: date-time
+        views_count:
+          type: integer
+          format: int32
+        reviews:
+          type: array
+          items:
+            $ref: "#/components/schemas/Review"
+        imageBase64:
+          type: string
+    Review:
+      type: object
+      properties:
+        reviewId:
+          type: integer
+          format: int64
+        username:
+          type: string
+        comment:
+          type: string
+        calification:
+          type: integer
+          format: int32
+        creationDate:
+          type: string
+          format: date-time
+    ReviewDTO:
+      type: object
+      properties:
+        reviewId:
+          type: integer
+          format: int64
+        username:
+          type: string
+        comment:
+          type: string
+        calification:
+          type: integer
+          format: int32
+        creationDate:
+          type: string
+          format: date
+    UserCreationDTO:
+      type: object
+      properties:
+        name:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          type: array
+          items:
+            type: string
+        orders:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderDTO"
+        reviews:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReviewDTO"
+        cart:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductDTO"
+        cartPrice:
+          type: number
+          format: double
+        historicalOrderPrices:
+          type: array
+          items:
+            type: number
+            format: double
+        imageBase64:
+          type: string
+    UserDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        role:
+          type: array
+          items:
+            type: string
+        orders:
+          type: array
+          items:
+            $ref: "#/components/schemas/OrderDTO"
+        reviews:
+          type: array
+          items:
+            $ref: "#/components/schemas/ReviewDTO"
+        cart:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductDTO"
+        cartPrice:
+          type: number
+          format: double
+        historicalOrderPrices:
+          type: array
+          items:
+            type: number
+            format: double
+    AuthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          enum:
+          - SUCCESS
+          - FAILURE
+        message:
+          type: string
+        error:
+          type: string
+        user:
+          $ref: "#/components/schemas/UserDTO"
+        authenticated:
+          type: boolean
+    LoginRequest:
+      type: object
+      properties:
+        username:
+          type: string
+        password:
+          type: string
+    ShoppingCartDTO:
+      type: object
+      properties:
+        cartProducts:
+          type: array
+          items:
+            $ref: "#/components/schemas/ProductDTO"
+        totalPrice:
+          type: number
+          format: double
+    Pageable:
+      type: object
+      properties:
+        page:
+          type: integer
+          format: int32
+          minimum: 0
+        size:
+          type: integer
+          format: int32
+          minimum: 1
+        sort:
+          type: array
+          items:
+            type: string
+    SearchProductDTO:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        name:
+          type: string
+        price:
+          type: number
+          format: double
+        type:
+          type: string
+        imageBase64:
+          type: string
+    Product:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+        type:
+          type: string
+        name:
+          type: string
+        company:
+          type: string
+        price:
+          type: number
+          format: double
+        description:
+          type: string
+        views_count:
+          type: integer
+          format: int32
+        stock:
+          type: integer
+          format: int32
+        isAccepted:
+          type: boolean
+        imageBase64:
+          type: string
+        reviews:
+          type: array
+          items:
+            $ref: "#/components/schemas/Review"
+        date:
+          type: string
+          format: date-time
+        viewsCount:
+          type: integer
+          format: int32
+    PageMetadata:
+      type: object
+      properties:
+        size:
+          type: integer
+          format: int64
+        number:
+          type: integer
+          format: int64
+        totalElements:
+          type: integer
+          format: int64
+        totalPages:
+          type: integer
+          format: int64
+    PagedModel:
+      type: object
+      properties:
+        content:
+          type: array
+          items:
+            type: object
+        page:
+          $ref: "#/components/schemas/PageMetadata"
+    CompanyStadsDTO:
+      type: object
+      properties:
+        key:
+          type: string
+        value:
+          type: integer
+          format: int32
+    ErrorResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        code:
+          type: integer
+          format: int32
+        timestamp:
+          type: string
+          format: date-time
+
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  
+
+security:
+  - bearerAuth: []
+  
+servers:
+  - url: https://localhost:8443
+    description: Generated server url
+
+paths:
+  /api/v1/users/{id}/image:
+    get:
+      tags:
+        - api-user-controller
+      summary: Get user profile image
+      description: Retrieves the profile image for the specified user
+      operationId: getUserImage
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Numeric ID of the user
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: User image retrieved successfully
+          content:
+            image/*:
+              schema:
+                type: string
+                format: binary
+        "401":
+          description: Unauthorized - Missing or invalid authentication
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden - Insufficient permissions
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: User not found or has no profile image
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    put:
+      tags:
+        - api-user-controller
+      summary: Replace user profile image
+      description: Uploads a new profile image replacing any existing one
+      operationId: replaceUserImage
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Numeric ID of the user
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+                  description: The image file to upload (JPG/PNG)
+              required:
+                - imageFile
+      responses:
+        "200":
+          description: Image replaced successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  imageUrl:
+                    type: string
+        "400":
+          description: Invalid file format or missing file
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+    post:
+      tags:
+        - api-user-controller
+      summary: Upload user profile image
+      description: Uploads a profile image (requires no existing image)
+      operationId: uploadUserImage
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: Numeric ID of the user
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+                  description: The image file to upload (JPG/PNG)
+              required:
+                - imageFile
+      responses:
+        "201":
+          description: Image uploaded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  imageUrl:
+                    type: string
+        "400":
+          description: User already has a profile image (use PUT instead)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "403":
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+    delete:
+      tags:
+      - api-user-controller
+      summary: Delete user image
+      description: Delete a user's image.
+      operationId: deleteProductImage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: User image deleted successfully
+          content:
+            '*/*':
+              schema:
+                type: object
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Image doesn't exist
+          content:
+            '*/*':
+              schema:
+                type: object
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/users:
+    get:
+      tags:
+      - api-user-controller
+      summary: Get all users
+      description: Retrieve a list of all users in the system.
+      operationId: getAllUsers
+      responses:
+        "200":
+          description: List of users retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDTO"
+        "500":
+          description: Internal server error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/UserDTO"
+    put:
+      tags:
+      - api-user-controller
+      summary: Update user profile
+      description: Update the details of an existing user.
+      operationId: updateProfile
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreationDTO"
+        required: true
+      responses:
+        "200":
+          description: Profile updated successfully
+          content:
+            '*/*':
+              schema:
+                type: object
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: User not found
+          content:
+            '*/*':
+              schema:
+                type: object
+    post:
+      tags:
+      - api-user-controller
+      summary: Create a new user
+      description: Register a new user in the system.
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreationDTO"
+        required: true
+      responses:
+        "200":
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDTO"
+        "400":
+          description: Username already exists
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Internal server error
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/products/{id}:
+    get:
+      tags:
+      - api-product-controller
+      summary: Get product by ID
+      description: Retrieve a product by its unique ID.
+      operationId: getProductById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Product retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "404":
+          description: Product not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+    put:
+      tags:
+      - api-product-controller
+      summary: Update a product
+      description: Update the details of an existing product.
+      operationId: updateProduct
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductDTO"
+        required: true
+      responses:
+        "200":
+          description: Product updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+    delete:
+      tags:
+      - api-product-controller
+      summary: Delete a product
+      description: Delete a product by its unique ID.
+      operationId: deleteProduct
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Product deleted successfully
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "404":
+          description: Product not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+  /api/v1/products/{id}/image:
+    get:
+      tags:
+      - api-product-controller
+      summary: Get product image
+      description: Retrieve the image of a specific product by its ID.
+      operationId: getProductImage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Product image retrieved successfully
+          content:
+            image/jpeg: {}
+        "404":
+          description: Product image not found
+          content:
+            '*/*':
+              schema:
+                type: object
+    put:
+      tags:
+      - api-product-controller
+      summary: Replace product image
+      description: Replace the existing image of a product with a new one.
+      operationId: replaceProductImage_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+              required:
+              - file
+      responses:
+        "200":
+          description: Product image replaced successfully
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "400":
+          description: Bad request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+    post:
+      tags:
+      - api-product-controller
+      summary: Upload product image
+      description: Upload a new image for a specific product.
+      operationId: createProductImage
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                imageFile:
+                  type: string
+                  format: binary
+              required:
+              - imageFile
+      responses:
+        "200":
+          description: Product image uploaded successfully
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "400":
+          description: Bad request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+    delete:
+      tags:
+      - api-product-controller
+      summary: Delete product image
+      description: Delete the image of a specific product.
+      operationId: deleteProductImage_1
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Product image deleted successfully
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "400":
+          description: Bad request
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+  /api/v1/products/addViewsCount:
+    put:
+      summary: Increment views count
+      tags:
+      - api-product-controller
+      operationId: addViewsCount
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+  /api/v1/products/accept:
+    put:
+      summary: Accept product
+      tags:
+      - api-product-controller
+      operationId: acceptProduct
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+  /api/v1/users/shoppingcarts/{productId}:
+    post:
+      tags:
+      - api-shopping-cart-controller
+      summary: Add product to shopping cart
+      description: Add a product to the shopping cart of a specific user.
+      operationId: addProductToCart
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: productId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Product added to cart successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "404":
+          description: User or product not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+    delete:
+      tags:
+      - api-shopping-cart-controller
+      summary: Remove product from shopping cart
+      description: Remove a product from the shopping cart of a specific user.
+      operationId: removeProductFromCart
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: productId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Product removed from cart successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "404":
+          description: Product or user not found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+  /api/v1/users/shoppingcarts/payment:
+    post:
+      tags:
+      - api-shopping-cart-controller
+      summary: Process payment for shopping cart
+      description: Process payment for the items in the shopping cart.
+      operationId: payment
+      responses:
+        "200":
+          description: Payment processed successfully
+          content:
+            '*/*':
+              schema:
+                type: object
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/reviews/{id}:
+    get:
+      tags:
+      - api-reviews-controller
+      summary: Get all reviews of a product
+      description: Retrieve all reviews for a specific product by its ID.
+      operationId: getReviewsByProductId
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: List of reviews retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewDTO"
+        "404":
+          description: Product not found
+          content:
+            '*/*':
+              schema:
+                type: object
+    post:
+      tags:
+      - api-reviews-controller
+      summary: Post a new review for a product
+      description: Add a new review to a product.
+      operationId: postNewReview
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReviewDTO"
+        required: true
+      responses:
+        "200":
+          description: Review added successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewDTO"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: Product not found
+          content:
+            '*/*':
+              schema:
+                type: object
+        "500":
+          description: Error adding review
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/products:
+    get:
+      tags:
+      - api-product-controller
+      summary: Get products
+      description: Retrieve products based on filters.
+      operationId: getProducts
+      parameters:
+      - name: accepted
+        in: query
+        required: false
+        schema:
+          type: boolean
+      - name: company
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "200":
+          description: List of products retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "404":
+          description: No products found
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/PagedModel"
+    post:
+      tags:
+      - api-product-controller
+      summary: Create a new product
+      description: Create a new product with a given set of properties.
+      operationId: createProduct
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ProductDTO"
+        required: true
+      responses:
+        "200":
+          description: Product created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+        "403":
+          description: Forbidden
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+  /api/v1/auth/refresh:
+    post:
+      tags:
+      - login-controller
+      summary: Refresh authentication token
+      description: Refresh the user's authentication token using the refresh token
+        stored in the cookie.
+      operationId: refresh
+      parameters:
+      - name: RefreshToken
+        in: cookie
+        required: false
+        schema:
+          type: string
+      responses:
+        "204":
+          description: "Refresh successful, new token issued"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: "Unauthorized, invalid or expired refresh token"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /api/v1/auth/logout:
+    post:
+      tags:
+      - login-controller
+      summary: Logout a user
+      description: Logout the user by invalidating the session and refresh token.
+      operationId: logOut
+      responses:
+        "204":
+          description: "Logout successful, no content returned"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: "Unauthorized, unable to logout"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /api/v1/auth/login:
+    post:
+      tags:
+      - login-controller
+      summary: Login a user
+      description: Authenticate a user and provide a JWT token along with user details
+        upon successful login.
+      operationId: login
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginRequest"
+        required: true
+      responses:
+        "200":
+          description: Login successful with user details and token
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+        "401":
+          description: "Unauthorized, invalid credentials"
+          content:
+            '*/*':
+              schema:
+                $ref: "#/components/schemas/AuthResponse"
+  /api/v1/users/{id}:
+    get:
+      tags:
+      - api-user-controller
+      summary: Get user by ID
+      description: Retrieve a user by their unique ID.
+      operationId: getUserById
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: User retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDTO"
+        "404":
+          description: User not found
+          content:
+            '*/*':
+              schema:
+                type: object
+    delete:
+      tags:
+      - api-user-controller
+      summary: Delete user
+      description: Delete a user by their unique ID.
+      operationId: deleteUser
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: User deleted successfully
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: User not found
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/users/shoppingcarts:
+    get:
+      tags:
+      - api-shopping-cart-controller
+      summary: Get shopping cart of a user
+      description: Retrieve the shopping cart details of a specific user.
+      operationId: getShoppingCart
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Shopping cart retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ShoppingCartDTO"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: User not found
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/users/profile:
+    get:
+      tags:
+      - api-user-controller
+      summary: Get user profile
+      description: Retrieve the profile details of the authenticated user.
+      operationId: getProfile
+      responses:
+        "200":
+          description: User profile retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/UserDTO"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                type: object
+        "404":
+          description: User not found
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/users/by-username/{username}:
+    get:
+      tags:
+      - api-user-controller
+      summary: Get user ID by username
+      description: Retrieve a user's ID by their username.
+      operationId: getUserIdByUsername
+      parameters:
+      - name: username
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: User ID retrieved successfully
+          content:
+            application/json:
+              schema:
+                type: integer
+                format: int64
+        "404":
+          description: User not found
+          content:
+            '*/*':
+              schema:
+                type: integer
+                format: int64
+  /api/v1/reviews/{productId}/{reviewId}:
+    get:
+      tags:
+      - api-reviews-controller
+      summary: Get a specific review of a product
+      description: Retrieve a specific review for a product by its ID and review ID.
+      operationId: getReviewsOfAProductById
+      parameters:
+      - name: productId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      - name: reviewId
+        in: path
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: Review retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReviewDTO"
+        "404":
+          description: Product or review not found
+          content:
+            '*/*':
+              schema:
+                type: object
+  /api/v1/products/type:
+    get:
+      tags:
+      - api-product-controller
+      summary: Get products by type
+      description: Retrieve products filtered by type.
+      operationId: getProductsByType
+      parameters:
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+      - name: pageable
+        in: query
+        required: true
+        schema:
+          $ref: "#/components/schemas/Pageable"
+      responses:
+        "200":
+          description: List of products retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+  /api/v1/products/type/all:
+    get:
+      tags:
+      - api-product-controller
+      summary: Get products by type
+      description: Retrieve products filtered by type.
+      operationId: getAllProductsByType
+      parameters:
+      - name: type
+        in: query
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          description: List of products retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+  /api/v1/products/search:
+    get:
+      summary: Search products
+      tags:
+      - api-product-controller
+      operationId: searchProducts
+      parameters:
+      - name: search_text
+        in: query
+        required: false
+        schema:
+          type: string
+      - name: type
+        in: query
+        required: false
+        schema:
+          type: string
+          default: all
+      responses:
+        "200":
+          description: OK
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/SearchProductDTO"
+  /api/v1/products/mostViewedProducts:
+    get:
+      tags:
+      - api-product-controller
+      summary: Get most viewed products
+      description: Retrieve a list of the most viewed products.
+      operationId: getMostViewedProducts
+      responses:
+        "200":
+          description: List of most viewed products retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+  /api/v1/products/lastProducts:
+    get:
+      tags:
+      - api-product-controller
+      summary: Get last products
+      description: Retrieve a list of the last added products.
+      operationId: getLastProducts
+      responses:
+        "200":
+          description: List of last products retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+  /api/v1/products/all:
+    get:
+      tags:
+      - api-product-controller
+      summary: Get all accepted products
+      description: Retrieve all accepted products without pagination.
+      operationId: getAllProducts
+      parameters:
+      - name: accepted
+        in: query
+        required: false
+        schema:
+          type: boolean
+      responses:
+        "200":
+          description: List of all accepted products retrieved successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ProductDTO"
+  /api/v1/graphs/userGraph:
+    get:
+      tags:
+      - api-graphs-controller
+      summary: Get user historical orders graph
+      description: Retrieve the user's historical orders data for graph display.
+      operationId: displayUserGraph
+      responses:
+        "200":
+          description: User historical orders retrieved successfully
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: number
+                  format: double
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: number
+                  format: double
+        "500":
+          description: Internal server error
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  type: number
+                  format: double
+  /api/v1/graphs/companyGraph:
+    get:
+      tags:
+      - api-graphs-controller
+      summary: Get company statistics graph
+      description: Retrieve the company statistics data for graph display.
+      operationId: displayGraph
+      responses:
+        "200":
+          description: Company statistics retrieved successfully
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CompanyStadsDTO"
+        "401":
+          description: Unauthorized
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CompanyStadsDTO"
+        "404":
+          description: Company data not found
+          content:
+            '*/*':
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CompanyStadsDTO"
+  /api/v1/auth/test:
+    get:
+      tags:
+      - login-controller
+      summary: Test login endpoint
+      description: Check if the login endpoint is accessible.
+      operationId: test
+      responses:
+        "200":
+          description: Test endpoint accessible
+          content:
+            '*/*':
+              schema:
+                type: string
+  /api/v1/products/delete:
+    delete:
+      summary: Delete product
+      tags:
+      - api-product-controller
+      operationId: deleteProduct_1
+      parameters:
+      - name: id
+        in: query
+        required: true
+        schema:
+          type: integer
+          format: int64
+      responses:
+        "200":
+          description: OK

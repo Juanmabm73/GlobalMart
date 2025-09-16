@@ -1,0 +1,60 @@
+.highcharts-figure {
+  min-width: 320px;
+  max-width: 800px;
+  margin: 2em auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  background: linear-gradient(to bottom right, #ffffff, #f9f9f9);
+}
+
+.highcharts-figure h2.chart-title {
+  text-align: center;
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-bottom: 1.5rem;
+  font-weight: 600;
+}
+
+#container {
+  height: 400px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.highcharts-description {
+  text-align: center;
+  color: #666;
+  margin-top: 1rem;
+  font-style: italic;
+}
+
+/* Enhance Highcharts elements */
+:host ::ng-deep .highcharts-title {
+  font-weight: 600 !important;
+  font-size: 18px !important;
+}
+
+:host ::ng-deep .highcharts-axis-title {
+  font-weight: 500 !important;
+}
+
+:host ::ng-deep .highcharts-tooltip {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2)) !important;
+}
+
+:host ::ng-deep .highcharts-series path {
+  stroke-width: 3px;
+}
+
+:host ::ng-deep .highcharts-point {
+  stroke-width: 2px;
+}
+
+:host ::ng-deep .highcharts-grid-line {
+  stroke: #e6e6e6;
+}
+
+:host ::ng-deep .highcharts-data-label text {
+  font-weight: 500 !important;
+}

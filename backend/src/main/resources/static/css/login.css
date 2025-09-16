@@ -1,0 +1,85 @@
+body {
+    font-family: "Itim", sans-serif;
+}
+
+.form_div {
+    display: none;
+    position: absolute;
+    width: 40%;
+    top: 50%;
+    left: 50%;
+    /* Inicio fuera del centro para lograr un efecto de movimiento */
+    transform: translate(-50%, -70%);
+    background-color: #f9f9f9;
+    z-index: 2;
+    width: 300px;
+    margin: 50px auto 0 auto;
+    /* Agrega un margen superior de 50px */
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form_div h3 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form_div form {
+    display: flex;
+    flex-direction: column;
+}
+
+.form_div input[type="text"],
+.form_div input[type="password"],
+.form_input {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.form_div .google_login {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form_div .google_login img {
+    width: 50px;
+    cursor: pointer;
+    background: transparent;
+}
+
+.form_div .buttons_div {
+    display: flex;
+}
+
+.form_div .buttons_div button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #d9d9d9;
+    color: black;
+    cursor: pointer;
+}
+
+.form_div .buttons_div button[type="reset"] {
+    background-color: #e30d22;
+}
+
+.form_div.login_div.active {
+    display: block;
+}
+
+.form_div.register_div.active {
+    display: block;
+}
+
+.type_users_div {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 10px;
+}

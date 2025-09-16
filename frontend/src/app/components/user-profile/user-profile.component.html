@@ -1,0 +1,167 @@
+<div class="profile-container" *ngIf="user">
+  <div class="profile-header">
+    <div class="profile-avatar-container">
+      <img
+        [src]="userImageUrl || 'assets/img/perfil.png'"
+        alt="Profile Picture"
+        class="profile-avatar"
+        (error)="handleImageError($event)"
+      />
+      <button
+        class="change-photo-btn"
+        (click)="openPhotoModal()"
+        title="Change profile picture"
+      >
+        <i class="fa fa-camera"></i>
+      </button>
+    </div>
+
+    <div class="profile-details-container">
+      <h1 class="profile-name">{{ user.name || "User" }}</h1>
+      <p class="profile-username">&#64;{{ user.username }}</p>
+      <div class="role-badge" *ngIf="user.roles && user.roles.length">
+        {{ user.roles[0] }}
+      </div>
+
+      <!-- Botón para cambiar la foto -->
+      <button class="change-photo-button-large" (click)="openPhotoModal()">
+        <i class="fa fa-camera"></i>
+        Change Profile Picture
+      </button>
+    </div>
+  </div>
+
+  <div class="profile-body">
+    <!-- Mensaje de error o éxito -->
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      <i class="fa fa-exclamation-circle"></i>
+      {{ errorMessage }}
+    </div>
+    <div *ngIf="successMessage" class="alert alert-success">
+      <i class="fa fa-check-circle"></i>
+      {{ successMessage }}
+    </div>
+
+    <div class="profile-section">
+      <h2 class="section-title">Profile Information</h2>
+
+      <div class="user-info-container">
+        <div class="info-row">
+          <div class="info-label">Email</div>
+          <div class="info-value">{{ user.email }}</div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-label">Username</div>
+          <div class="info-value">{{ user.username }}</div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-label">Name</div>
+          <div class="info-value">{{ user.name || "Not specified" }}</div>
+        </div>
+
+        <div class="info-row">
+          <div class="info-label">Role</div>
+          <div class="info-value">
+            {{ user.roles && user.roles.length ? user.roles[0] : "User" }}
+          </div>
+        </div>
+      </div>
+
+      <!-- Solo modificando la parte de los botones -->
+      <div class="btn-container mt-4">
+        <button
+          type="button"
+          class="btn btn-primary"
+          [routerLink]="['/edit-profile']"
+        >
+          <i class="fa fa-edit"></i> Edit Profile
+        </button>
+        <button
+          *ngIf="isUser"
+          class="btn btn-secondary graph-btn"
+          routerLink="/user-graph"
+        >
+          <i class="fa fa-bar-chart"></i> Show My Expenses Graph
+        </button>
+        <button
+          *ngIf="isCompany"
+          class="btn btn-secondary graph-btn"
+          routerLink="/company-graph"
+        >
+          <i class="fa fa-pie-chart"></i> Show Products Graph
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal para cambiar foto -->
+<div class="photo-modal" *ngIf="showPhotoModal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h3 class="modal-title">Change Profile Picture</h3>
+      <button type="button" class="close-button" (click)="closePhotoModal()">
+        &times;
+      </button>
+    </div>
+
+    <div class="file-upload">
+      <div class="file-input-container">
+        <input
+          type="file"
+          class="file-input"
+          (change)="onFileSelected($event)"
+          accept="image/*"
+          #fileInput
+        />
+        <div class="file-label">
+          <i class="fa fa-cloud-upload"></i>
+          <span *ngIf="!selectedFile">Click or drag to upload an image</span>
+          <span *ngIf="selectedFile">{{ selectedFile.name }}</span>
+        </div>
+      </div>
+
+      <div class="preview-container" *ngIf="imagePreview">
+        <img
+          [src]="imagePreview"
+          alt="Image preview"
+          class="image-preview"
+          (error)="handleImageError($event)"
+        />
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="closePhotoModal()"
+      >
+        <i class="fa fa-times"></i> Cancel
+      </button>
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="uploadProfileImage()"
+        [disabled]="!selectedFile || uploadingPhoto"
+      >
+        <span *ngIf="uploadingPhoto" class="loading-spinner"></span>
+        <span *ngIf="!uploadingPhoto"
+          ><i class="fa fa-upload"></i> Upload Photo</span
+        >
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- Mostrar loading para carga inicial -->
+<div
+  *ngIf="!user"
+  class="profile-container d-flex justify-content-center align-items-center"
+  style="height: 300px"
+>
+  <div class="loading-spinner"></div>
+</div>
+<div class="overlay" *ngIf="showPhotoModal"></div>

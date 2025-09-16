@@ -1,0 +1,88 @@
+<link rel="stylesheet" href="/css/nav.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+<nav class="main_nav_div">
+    <div class="title_sections_div">
+        <a
+            href="{{^isCompany}}{{^isAdmin}}/redir{{/isAdmin}}{{/isCompany}}{{#isCompany}}/products/allProducts{{/isCompany}}{{#isAdmin}}/adminPage{{/isAdmin}}">
+            <h1 class="title_sections">GlobalMart</h1>
+        </a>
+
+        <div class="sections_list">
+            <a href="/products/allProducts" class="section">Products</a>
+            {{#isAdmin}}
+            <a href="/adminPage" class="section">Admin</a>
+            {{/isAdmin}}
+            <a href="/about" class="section">About us</a>
+        </div>
+    </div>
+
+    {{^isCompany}}
+    <form class="search_form" action="/search" method="get" role="search">
+        <select class="search_category" name="type">
+            <option value="all">All</option>
+            <option value="Technology">Technology</option>
+            <option value="Books">Books</option>
+            <option value="Education">Education</option>
+            <option value="Appliances">Appliances</option>
+            <option value="Sports">Sports</option>
+            <option value="Home">Home</option>
+            <option value="Music">Music</option>
+            <option value="Cinema">Cinema</option>
+            <option value="Others">Others</option>
+        </select>
+        <input name="search_text" class="search_input" type="search" placeholder="Search" aria-label="Search">
+        <button class="search_button" type="submit"><i class="bi bi-search"></i></button>
+    </form>
+    {{/isCompany}}
+
+    {{#logged}}
+    <div class="login_user">
+        {{#isCompany}}
+        <div class="add_product_div">
+            <a href="/new_product" class="add_product_link"><i class="bi bi-plus-circle"
+                    id="add_product_button"></i></a>
+        </div>
+        {{/isCompany}}
+        <div class="user_div">
+            <a href="/profile" class="user"><i class="bi bi-person"></i></a>
+            <h3 class="username">{{username}}</h3>
+        </div>
+        {{#isUser}}
+        <a href="/shoppingcart" class="cart"><i class="bi bi-cart"></i></a>
+        {{/isUser}}
+        <form action="/logout" method="post" style="display:inline;">
+            <!-- Si CSRF está habilitado, añade el token -->
+            <button type="submit" class="logout">Log Out</button>
+        </form>
+    </div>
+    {{/logged}}
+
+    {{^logged}}
+    <div class="login_register_div">
+        <button class="login">Login</button>
+        <button class="register">Register</button>
+    </div>
+    {{/logged}}
+</nav>
+{{^isAdmin}}
+{{^isCompany}}
+<div class="categories_div">
+    <a href="/products/allProducts" class="category">All</a>
+    <a href="/products/Technology" class="category">Technology</a>
+    <a href="/products/Books" class="category">Books</a>
+    <a href="/products/Education" class="category">Education</a>
+    <a href="/products/Appliances" class="category">Appliances</a>
+    <a href="/products/Sports" class="category">Sports</a>
+    <a href="/products/Home" class="category">Home</a>
+    <a href="/products/Music" class="category">Music</a>
+    <a href="/products/Cinema" class="category">Cinema</a>
+    <a href="/products/Others" class="category">Others</a>
+</div>
+{{/isCompany}}
+{{/isAdmin}}
+
+<!--  Para mostrar el pop-up -->
+{{ > choose_login-register_option}}
+
+<script src="../../js/login.js"></script>

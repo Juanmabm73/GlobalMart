@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+
+
+    <!-- /* Links */ -->
+    <link rel="stylesheet" href="/css/shoppingcart.css">
+
+    <!-- /* Itim Font */ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Itim&display=swap"
+        rel="stylesheet">
+
+
+</head>
+
+<body>
+    <!-- ----------------- Nav ----------------- -->
+    {{>./components/nav}}
+
+
+
+    <div class="cart-container">
+        <h2>Shopping Cart</h2>
+        <p>User registered as: {{username}}</p>
+        {{#cart.cartProducts}}
+        <div class="cart-item">
+            <img src="{{imageBase64}}" alt="{{name}}">
+            <div class="details">
+                <p><strong>{{name}}</strong></p>
+                <p>Price: {{price}}€</p>
+                <div>
+                    <form action="/removeProductFromCart/{{id}}" method="POST">
+                        <button type="submit" class="remove">Remove product</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {{/cart.cartProducts}}
+
+        {{^cart.cartProducts}}
+        <h3>No products in the cart</h3>
+        {{/cart.cartProducts}}
+        <div class="subtotal_and_payment_div">
+            <form action="/payment" method="POST">
+                {{^isEmpty}}
+                <button class="buy_button" type="submit">Buy</button>
+                {{/isEmpty}}
+            </form>
+            <p class="subtotal_title">Subtotal: {{totalPrice}}</p>
+        </div>
+
+
+    </div>
+
+
+    <!-- ------------Footer ------------ -->
+    {{>./components/footer}}
+
+</body>
+
+<script src="/js/slider.js"></script>
+
+</html>

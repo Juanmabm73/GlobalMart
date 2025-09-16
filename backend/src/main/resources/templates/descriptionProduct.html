@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Details | Global Mart</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/descriptionProduct.css">
+
+    <!-- Itim Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Itim&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- ----------------- Nav ----------------- -->
+    {{>/components/nav}}
+
+    <!-- ----------------- Product Details ----------------- -->
+    <div class="container mt-5">
+        <div class="row">
+            {{#product}}
+            <div class="col-md-6">
+                <img src="{{imageBase64}}" class="img-fluid" alt="Product Image">
+            </div>
+            <div class="col-md-6">
+                <h2 class="product-title">{{name}}</h2>
+                <p class="product-company">Company: {{company}}</p>
+                <p class="product-type">Type: {{type}}</p>
+                <p class="product-price">{{price}}€</p>
+                <p class="product-description">{{description}}</p>
+
+                <p class="product-stock">Stock: {{stock}}</p>
+
+                <div class="buttons_div">
+                    {{^isAdmin}}
+                    {{^isCompany}}
+                    <form action="/shoppingcart/{{productId}}" method="POST">
+                        {{#logged}}
+                        <button class="add2cart_button" type="submit">Añadir al carrito</button>
+                        {{/logged}}
+                    </form>
+                    {{/isCompany}}
+                    {{/isAdmin}}
+
+                    {{#isAdmin}}
+
+                    <a href="/edit_product/{{productId}}" class="edit_product_button">Edit Product</a>
+
+                    {{/isAdmin}}
+                    {{#isCompany}}
+
+                    <a href="/edit_product/{{productId}}" class="edit_product_button">Edit Product</a>
+
+                    {{/isCompany}}
+
+                    {{#isCompany}}
+                    <!-- Solo mostrar el botón al propietario del producto -->
+                    {{#isOwner}}
+                    <a href="/edit_product/{{productId}}" class="edit_product_button">Edit Product</a>
+                    <a href="/deleteProduct/{{productId}}" class="edit_product_button">Delete Product</a>
+
+                    {{/isOwner}}
+                    {{/isCompany}}
+
+                    <a href="/products/allProducts" class="back2products_button">Back to Products</a>
+                </div>
+            </div>
+            {{/product}}
+
+
+            {{>/components/reviews}}
+        </div>
+    </div>
+
+    <!-- ------------Footer ------------ -->
+    {{>./components/footer}}
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

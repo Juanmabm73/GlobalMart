@@ -1,0 +1,21 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "GlobalMartApplication",
+            "request": "launch",
+            "mainClass": "es.codeurjc.global_mart.GlobalMartApplication",
+            "projectName": "global_mart"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-HelloworldVscodeApplication<helloworld-vscode>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "es.codeurjc.helloworld_vscode.HelloworldVscodeApplication",
+            "projectName": "helloworld-vscode",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

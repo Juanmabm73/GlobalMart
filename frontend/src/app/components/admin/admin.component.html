@@ -1,0 +1,32 @@
+<div class="admin-container">
+    <!-- Lista de productos no aceptados -->
+    <div *ngIf="productsNotAccepted?.content && productsNotAccepted.content.length > 0" class="pending-requests">
+        <h2 class="section-title">Pending Product Requests</h2>
+        <div class="requests-grid">
+            <div class="request-card" *ngFor="let product of productsNotAccepted.content">
+                <div class="request-image">
+                    <img *ngIf="product.imageBase64; else placeholder" [src]="product.imageBase64" alt="{{ product.name }}">
+                    <ng-template #placeholder>
+                        <img src="/images/product-placeholder.jpg" alt="Placeholder">
+                    </ng-template>
+                </div>
+                <div class="request-details">
+                    <h3 class="product-name">{{ product.name }}</h3>
+                    <p class="product-company">Company: {{ product.company }}</p>
+                    <p class="product-price">{{ product.price | currency:'EUR' }}</p>
+                    <p class="product-description">{{ product.description }}</p>
+                </div>
+                <div class="request-buttons">
+                    <button class="btn accept-btn" (click)="acceptProduct(product.id)">Aceptar</button>
+                    <button class="btn decline-btn" (click)="declineProduct(product.id)">Rechazar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mensaje cuando no hay productos pendientes -->
+    <div *ngIf="!productsNotAccepted?.content || productsNotAccepted.content.length === 0" class="no-requests">
+        <h1 class="message-all-processed">All products processed</h1>
+    </div>
+</div>
+

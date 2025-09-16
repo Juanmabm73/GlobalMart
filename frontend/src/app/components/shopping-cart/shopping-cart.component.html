@@ -1,0 +1,87 @@
+<div class="cart-container">
+
+    <div>
+        <h1 class="cart-title">Shopping Cart</h1>
+    </div>
+    
+    <div *ngIf="loading" class="loading-container">
+        <div class="loading-spinner">
+            <span class="screen-reader-text">Loading...</span>
+        </div>
+    </div>
+
+    <div *ngIf="!loading && isEmpty" class="empty-cart">
+        <h3 class="empty-cart-title">Your cart is empty</h3>
+        <p class="empty-cart-message">Add products to your cart to see them here.</p>
+        <a routerLink="/products/" class="browse-products-btn">Browse Products</a>
+    </div>
+
+    <!-- Shopping cart content -->
+    <div *ngIf="!loading && !isEmpty" class="cart-content">
+        <div class="summary_div">
+            <div class="cart-items-container">
+                <div class="cart-items-card">
+                    <div class="cart-items-header">
+                        <h5 class="cart-items-title">Cart Items ({{ cart.cartProducts.length }})</h5>
+                    </div>
+                    <div class="cart-items-body">
+                        <div class="cart-item" *ngFor="let item of cart.cartProducts; let i = index">
+                            <div class="cart-item-row">
+                                <div class="cart-item-image-container">
+                                    <img *ngIf="item.imageBase64" [src]="item.imageBase64" class="cart-item-image"
+                                        alt="{{ item.name || 'Product' }}">
+                                    <img *ngIf="!item.imageBase64" src="assets/images/placeholder.png" class="cart-item-image"
+                                        alt="Product placeholder">
+                                </div>
+                                <div class="cart-item-details">
+                                    <h5 class="cart-item-name">{{ item.name }}</h5>
+                                    <p class="cart-item-company">{{ item.company }}</p>
+                                    <p class="cart-item-description">{{ item.description | slice:0:100 }}{{
+                                        item.description?.length > 100 ? '...' : '' }}</p>
+                                </div>
+                                <div class="cart-item-price-container">
+                                    <p class="cart-item-price">{{ item.price | currency:'EUR' }}</p>
+                                </div>
+                                <div class="cart-item-actions">
+                                    <button class="remove-item-btn" (click)="removeProduct(item.id)">
+                                        <i class="bi bi-trash"></i> Remove
+                                    </button>
+                                </div>
+                            </div>
+                            <hr *ngIf="i < cart.cartProducts.length - 1" class="cart-item-divider">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="order-summary-container">
+                <div class="order-summary-card">
+                    <div class="order-summary-header">
+                        <h5 class="order-summary-title">Order Summary</h5>
+                    </div>
+                    <div class="order-summary-body">
+                        <div class="order-summary-row">
+                            <span class="order-summary-label">Subtotal</span>
+                            <span class="order-summary-value">{{ cart.totalPrice | currency:'EUR' }}</span>
+                        </div>
+                        <div class="order-summary-row">
+                            <span class="order-summary-label">Shipping</span>
+                            <span class="order-summary-value">Free</span>
+                        </div>
+                        <hr class="order-summary-divider">
+                        <div class="order-summary-row total-row">
+                            <span class="order-total-label">Total</span>
+                            <span class="order-total-value">{{ cart.totalPrice | currency:'EUR' }}</span>
+                        </div>
+                        <button class="checkout-btn" [disabled]="processingPayment" (click)="checkout()">
+                            <span *ngIf="processingPayment" class="checkout-spinner">
+                                <span class="screen-reader-text">Processing...</span>
+                            </span>
+                            Checkout
+                        </button>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </div>
+</div>

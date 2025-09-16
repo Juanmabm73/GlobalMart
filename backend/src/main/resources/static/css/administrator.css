@@ -1,0 +1,58 @@
+.requests_container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: rgba(217, 217, 217, 0.5);
+    width: 80%;
+    max-width: 800px;
+}
+
+.requests {
+    display: flex;
+    flex-direction: column;
+    margin: 5px;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: rgb(205, 195, 195);
+}
+
+.requests img {
+    width: 100px;
+    height: 100px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.requests p {
+    margin: 5px 0;
+    text-align: center;
+}
+
+.requests:last-child {
+    border-bottom: none;
+}
+
+.requests button {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #6c757d;
+    color: white;
+    cursor: pointer;
+}   
+
+.messageAllProcessed {
+    margin: 20px auto;
+    width: 80%;
+    max-width: 800px;
+    display: flex;
+    justify-content: center;
+    margin-top: 100px;
+}
+

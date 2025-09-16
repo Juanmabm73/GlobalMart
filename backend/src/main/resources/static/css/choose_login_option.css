@@ -1,0 +1,93 @@
+body {
+    font-family: "Itim", sans-serif;
+    background-color: #f9f9f9;
+}
+
+.popup_container .overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.popup_container .content {
+    display: none;
+    position: absolute;
+    width: 40%;
+    top: 40%;
+    left: 50%;
+    /* Inicio fuera del centro para lograr un efecto de movimiento */
+    transform: translate(-50%, -70%);
+    background-color: #f9f9f9;
+    z-index: 2;
+    margin: 50px auto 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+
+}
+
+.login-register_options_title,
+.google_login_button,
+.microsoft_login_button,
+.email_login_button {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    width: 95%;
+    margin: 1rem 1rem 1rem 1rem;
+    cursor: pointer;
+}
+
+.google_login_button,
+.microsoft_login_button,
+.email_login_button {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    background-color: #d9d9d9;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.button_image {
+    height: calc(100% - 20px);
+    cursor: pointer;
+    background: transparent;
+    justify-content: flex-start;
+    padding-left: 15px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.button_text {
+    text-decoration: none;
+    color: black;
+    font-weight: bold;
+    width: 100%;
+    text-align: center;
+}
+
+.popup_container .overlay.active,
+.popup_container .content.active {
+    display: block;
+}
+
+.popup_container .content.active {
+    transition: all 0.7s ease-in-out;
+    transform: translate(-50%, -50%) scale(1);
+    -webkit-transition: all 0.7s ease-in-out;
+    -moz-transition: all 0.7s ease-in-out;
+    -ms-transition: all 0.7s ease-in-out;
+    -o-transition: all 0.7s ease-in-out;
+    -webkit-transform: translate(-50%, -50%) scale();
+    -moz-transform: translate(-50%, -50%) scale();
+    -ms-transform: translate(-50%, -50%) scale();
+    -o-transform: translate(-50%, -50%) scale();
+}

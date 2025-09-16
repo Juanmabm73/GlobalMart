@@ -1,0 +1,236 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* ------------------- Nav ------------------- */
+/* Main div style */
+.main_nav_div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #d9d9d9;
+    height: 60px;
+    border-bottom: rgba(217, 217, 217, 0.7);
+    padding: 0 20px;
+}
+
+/* Logo style */
+.title_sections_div {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+.sections_list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 20px;
+}
+
+a {
+    text-decoration: none;
+}
+
+.title_sections {
+    color: black;
+    font-size: 1.5rem;
+    font-weight: 800;
+}
+
+.sections_list a {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+/* Search bar style */
+.search_bar_div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    width: 800px;
+    border-radius: 20px;
+}
+
+.search_category {
+    width: 100px;
+    height: 30px;
+    padding: 0 10px;
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+.search_form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+    border: 1px solid rgba(0, 0, 0, 0.6);
+    border-radius: 20px;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+    -ms-border-radius: 20px;
+    -o-border-radius: 20px;
+}
+
+.search_input {
+    width: 100%;
+    height: 30px;
+    padding: 0 20px;
+    font-size: 1rem;
+    outline: none;
+    border: none;
+    background-color: transparent;
+}
+
+.search_button {
+    width: 30px;
+    height: 30px;
+    border: none;
+    background-color: transparent;
+    padding-right: 10px;
+}
+
+/* User style */
+.login_register_div {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 20px;
+    padding: 0 30px;
+}
+
+.login,
+.register,
+.logout {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 1rem;
+    font-family: "Itim", serif;
+}
+
+.login {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.register,
+.logout {
+    background-color: black;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 20px;
+    cursor: pointer;
+}
+
+.login_user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    padding: 0 30px;
+}
+
+.user_div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+}
+
+.username {
+    color: black;
+    font-size: 1.2rem;
+    font-weight: 800;
+}
+
+.user,
+.cart {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+.add_product_div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.add_product_link {
+    font-size: 1.2rem;
+    font-weight: 800;
+    text-decoration: none;
+    color: black;
+}
+
+/* ------------------- Categories ------------------- */
+.categories_div {
+    width: 100%;
+    min-height: 50px;
+    display: flex;
+    flex-wrap: wrap;
+    /* Allow items to wrap to the next line */
+    gap: 20px;
+    height: auto;
+    align-items: center;
+    padding: 0 20px;
+    background-color: rgba(217, 217, 217, 0.4);
+}
+
+.categories_div a {
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+    font-weight: 800;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .main_nav_div {
+        flex-direction: column;
+        align-items: flex-start;
+        height: auto;
+        padding: 10px;
+    }
+
+    .title_sections_div {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .sections_list {
+        flex-direction: column;
+        width: 100%;
+        gap: 10px;
+    }
+
+    .search_form {
+        width: 100%;
+        margin: 10px 0;
+    }
+
+    .user_div {
+        width: 100%;
+        justify-content: space-between;
+        padding: 0;
+    }
+
+    .categories_div {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 10px;
+        padding: 10px 0;
+    }
+}

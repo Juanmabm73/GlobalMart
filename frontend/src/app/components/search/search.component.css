@@ -1,0 +1,140 @@
+/* Establece altura y ancho fijo para los contenedores de imágenes */
+.card-img-top-wrapper {
+    height: 220px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f8f9fa;
+    position: relative;
+}
+
+/* Estilo para las imágenes de los productos */
+.card-img-top {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Mantiene la proporción sin recortar la imagen */
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+/* Efecto hover para las imágenes */
+.card-img-top:hover {
+    transform: scale(1.05);
+}
+
+/* Estilos para las tarjetas de productos */
+.card {
+    height: 100%;
+    transition: transform 0.2s, box-shadow 0.2s;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Altura fija para el cuerpo de la tarjeta */
+.card-body {
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Estilo para el título del producto */
+.card-title {
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    height: 2.4rem;
+    /* Altura para 2 líneas aproximadamente */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+/* Estilo para la descripción */
+.card-text {
+    flex-grow: 1;
+    overflow: hidden;
+}
+
+/* Hacer que el precio se destaque */
+.card-text strong {
+    color: #0069d9;
+    font-size: 1.1rem;
+}
+
+/* Estilo para el footer de la tarjeta */
+.card-footer {
+    background-color: white;
+    border-top: 1px solid rgba(0, 0, 0, 0.125);
+    padding: 1rem;
+}
+
+/* Estilo para el botón de ver detalles */
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+    padding: 0.5rem 1rem;
+    transition: background-color 0.2s;
+}
+
+.btn-primary:hover {
+    background-color: #0069d9;
+    border-color: #0062cc;
+}
+
+/* Estilos para el botón de cargar más */
+.btn-outline-primary {
+    transition: all 0.3s;
+    min-width: 120px;
+}
+
+/* Estilo para el spinner de carga */
+.spinner-border {
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+/* Estilo para el indicador de carga en imágenes */
+.image-loading-indicator {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* Estilo para el contenedor de carga de más productos */
+.load_more_div {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+/* Responsive: en pantallas pequeñas, reducir el tamaño de las tarjetas */
+@media (max-width: 768px) {
+    .card-img-top-wrapper {
+        height: 180px;
+    }
+
+    .card-body {
+        height: 180px;
+    }
+
+    .card-title {
+        font-size: 1rem;
+    }
+}
+
+/* Para dispositivos muy pequeños */
+@media (max-width: 576px) {
+    .card-img-top-wrapper {
+        height: 150px;
+    }
+}

@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page | Global Mart</title>
+
+    <!-- /* Links */ -->
+    <link rel="stylesheet" href="/css/index.css">
+
+    <!-- /* Slider links */ -->
+    <link rel="stylesheet" href="/css/slider.css">
+
+    <!-- /* Itim Font */ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Itim&display=swap"
+        rel="stylesheet">
+
+
+</head>
+
+<body>
+    <!-- ----------------- Nav ----------------- -->
+    {{>./components/nav}}
+
+    <!-- ----------------- Slider ----------------- -->
+    <div class="main_slider_div">
+        <div class="slider">
+            <img src="/images/rebajas.png" alt="Slider 1" class=" slide_image active">
+            <img src="/images/rebajas2.png" alt="Slider 2" class="slide_image">
+            <img src="/images/rebajas3.png" alt="Slider 3" class="slide_image">
+        </div>
+
+        <div class="buttons">
+            <button class="prev"><i class="bi bi-chevron-left"></i></button>
+            <button class="next"><i class="bi bi-chevron-right"></i></button>
+        </div>
+    </div>
+
+    <!-- ----------------- Products ----------------- -->
+    <div class="main_products_div">
+        <div class="product_section_container">
+            <h2 class="section_title">New Products</h2>
+            <div class="products_container">
+                {{#lastProducts}}
+                <div class="product">
+                    <a href="/product/{{id}}">
+                        <img src="{{imageBase64}}" alt="{{name}}" class="product_image">
+                        <h3 class="{{name}}">{{name}}</h3>
+                        <p class="product_price">{{price}} €</p>
+                    </a>
+
+                </div>
+                {{/lastProducts}}
+
+            </div>
+        </div>
+
+        <div class="product_section_container">
+            <h2 class="section_title">Most Viewed Products</h2>
+            <div class="products_container">
+                {{#mostViewedProducts}}
+                <div class="product">
+                    <a href="/product/{{id}}">
+                        <img src="{{imageBase64}}" alt="{{name}}" class="product_image">
+                        <h3 class="product_title">{{name}}</h3>
+                        <p class="product_price">{{price}} €</p>
+                    </a>
+                </div>
+                {{/mostViewedProducts}}
+
+                {{^mostViewedProducts}}
+                <p>No hay productos visualizados todavía</p>
+                {{/mostViewedProducts}}
+            </div>
+        </div>
+
+
+    </div>
+
+    <!-- ----------------- Footer ----------------- -->
+    {{>./components/footer}}
+
+    <script src="/js/slider.js"></script>
+
+</html>

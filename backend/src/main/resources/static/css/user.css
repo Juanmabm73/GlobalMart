@@ -1,0 +1,83 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Itim", sans-serif;
+}
+
+body {
+    width: 100%;
+    min-width: 100vh;
+}
+
+.user_container {
+    display: flex;
+    justify-content: center;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: rgba(217, 217, 217, 0.5);
+    ;
+    width: 80%;
+    max-width: 600px;
+}
+
+.profile_section {
+    display: flex;
+    align-items: center;
+}
+
+.user_container img {
+    width: 150px;
+    height: 150px;
+    border-radius: 20%;
+    margin-right: 20px;
+}
+
+.user_data {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: left;
+    gap: 5px;
+}
+
+.user_data p {
+    margin: 5px 0;
+}
+
+.edit_profile_button {
+    width: 120px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+}
+
+.user_data button:hover {
+    background-color: #0056b3;
+}
+
+.buttons_section {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.buttons_section button {
+    margin: 0 10px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+.buttons_section button:hover {
+    background-color: #0056b3;
+}

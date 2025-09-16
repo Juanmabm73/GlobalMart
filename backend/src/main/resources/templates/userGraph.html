@@ -1,0 +1,20 @@
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+<script src="https://code.highcharts.com/modules/export-data.js"></script>
+<script src="https://code.highcharts.com/modules/accessibility.js"></script>
+<div style="font-size: 15px;">
+    {{>./components/nav}}
+</div>
+<figure class="highcharts-figure">
+    
+
+    <div id="container"></div>
+    <p class="highcharts-description"></p>
+</figure>
+
+<div id="orderPrices-data" data-orderPrices="{{orderPrices}}" ></div>
+
+<div style="font-size: 15px;">
+    {{>./components/footer}}
+</div>
+<script src="/js/userGraph.js"></script>

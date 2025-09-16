@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Product | Global Mart</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="/css/uploadProducts.css">
+
+    <!-- Itim Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Itim&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- ----------------- Nav ----------------- -->
+    {{>./components/nav}}
+
+    <!-- ----------------- Upload Product Form ----------------- -->
+    <div class="container mt-5">
+        <h2 class="text-center mb-4">{{form_title}}</h2>
+        {{#product}}
+        <form action="/update_product/{{id}}" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="productName">Product Name</label>
+                <input type="text" name="product_name" class="form-control" id="productName" value="{{name}}" required>
+            </div>
+            <div class="form-group">
+                <label for="productImage">Product Image</label>
+                <input type="file" id="image" name="product_image" accept="image/*">
+                <small class="form-text text-muted">Leave empty to keep current image</small>
+                {{#imageBase64}}
+                <div class="mt-2">
+                    <p>Current image:</p>
+                    <img src="{{imageBase64}}" alt="Current product image" style="max-width: 200px;">
+                </div>
+                {{/imageBase64}}
+            </div>
+            <div class="form-group">
+                <label for="productDescription">Product Description</label>
+                <textarea name="product_description" class="form-control" id="productDescription" rows="3"
+                    required>{{description}}</textarea>
+            </div>
+            <div class="form-group">
+                <label for="productType">Product Type</label>
+                <select name="product_type" class="form-control" id="productType" required>
+                    <option value="Technology" {{#type_Technology}}selected{{/type_Technology}}>Technology</option>
+                    <option value="Books" {{#type_Books}}selected{{/type_Books}}>Books</option>
+                    <option value="Education" {{#type_Education}}selected{{/type_Education}}>Education</option>
+                    <option value="Appliances" {{#type_Appliances}}selected{{/type_Appliances}}>Appliances</option>
+                    <option value="Sports" {{#type_Sports}}selected{{/type_Sports}}>Sports</option>
+                    <option value="Home" {{#type_Home}}selected{{/type_Home}}>Home</option>
+                    <option value="Music" {{#type_Music}}selected{{/type_Music}}>Music</option>
+                    <option value="Cinema" {{#type_Cinema}}selected{{/type_Cinema}}>Cinema</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="productQuantity">Quantity</label>
+                <input name="product_stock" type="number" class="form-control" id="productQuantity" value="{{stock}}"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="productPrice">Price</label>
+                <input name="product_price" type="number" step="0.01" class="form-control" id="productPrice"
+                    value="{{price}}" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Update Product</button>
+        </form>
+        {{/product}}
+
+        {{^product}}
+        <form action="/newproduct" method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="productName">Product Name</label>
+                <input type="text" name="product_name" class="form-control" id="productName"
+                    placeholder="Enter product name" required>
+            </div>
+            <div class="form-group">
+                <label for="productImage">Product Image URL</label>
+                <input type="file" id="image" name="product_image" accept="image/*">
+            </div>
+            <div class="form-group">
+                <label for="productDescription">Product Description</label>
+                <textarea name="product_description" class="form-control" id="productDescription" rows="3"
+                    placeholder="Enter product description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="productType">Product Type</label>
+                <select name="product_type" class="form-control" id="productType" required>
+                    <option value="Technology">Technology</option>
+                    <option value="Books">Books</option>
+                    <option value="Education">Education</option>
+                    <option value="Appliances">Appliances</option>
+                    <option value="Sports">Deporte</option>
+                    <option value="Home">Home</option>
+                    <option value="Music">Music</option>
+                    <option value="Cinema">Cinema</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="productQuantity">Quantity</label>
+                <input name="product_stock" type="number" class="form-control" id="productQuantity"
+                    placeholder="Enter quantity" required>
+            </div>
+            <div class="form-group">
+                <label for="productPrice">Price</label>
+                <input name="product_price" type="number" class="form-control" id="productPrice"
+                    placeholder="Enter price" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+        {{/product}}
+    </div>
+    <br><br><br><br>
+    <!-- ----------------- Footer ----------------- -->
+    {{>./components/footer}}
+
+    <!-- Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>

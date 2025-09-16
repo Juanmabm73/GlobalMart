@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page | Global Mart</title>
+
+
+    <!-- /* Links */ -->
+    <link rel="stylesheet" href="/css/user.css">
+
+    <!-- /* Itim Font */ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Itim&display=swap"
+        rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- ----------------- Nav ----------------- -->
+    {{>./components/nav}}
+
+
+    <div class="user_container">
+        <div class="profile_section">
+            {{#userDTO}}
+            <img src={{imageBase64}} alt="">
+            <div class="user_data">
+                <h2>{{name}}</h2>
+                <p>Username: {{username}}</p>
+                <p>Email: {{email}}</p>
+                {{^isGoogleUser}}
+                <a href="/edit_profile" class="edit_profile_button">Edit Profile</a>
+                {{/isGoogleUser}}
+            </div>
+            {{/userDTO}}
+
+            {{^userDTO}}
+            <img src={{profile_image}} alt="">
+            <div class="user_data">
+                <h2>{{name}}</h2>
+                <p>Username: {{username}}</p>
+                <p>Email: {{email}}</p>
+                {{^isGoogleUser}}
+                <a href="/edit_profile" class="edit_profile_button">Edit Profile</a>
+                {{/isGoogleUser}}
+            </div>
+            {{/userDTO}}
+        </div>
+    </div>
+
+    <div class="buttons_section">
+        {{#isUser}}
+        <button onclick="showStadistics()"><a href="showUserGraphic">Show graph of my expenses</a></button>
+        {{/isUser}}
+        {{#isCompany}}
+        <button><a th:href="@{/displayGraph}" href="/displayGraphs">Show graph of my type of products</a></button>
+        {{/isCompany}}
+    </div>
+
+    <!-- ------------Footer ------------ -->
+    {{>./components/footer}}
+
+</body>

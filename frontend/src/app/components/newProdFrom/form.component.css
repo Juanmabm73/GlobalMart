@@ -1,0 +1,23 @@
+body {
+    font-family: 'Itim', sans-serif;
+}
+
+.container {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.footer_main_div {
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer_text {
+    color: #6c757d;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}

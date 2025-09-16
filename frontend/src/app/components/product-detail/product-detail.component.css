@@ -1,0 +1,5 @@
+.product-image-container img {
+    max-width: 100%; /* La imagen no excederá el ancho del contenedor */
+    max-height: 600px; /* Limitar la altura máxima */
+    object-fit: contain; /* Ajustar la imagen dentro del contenedor sin distorsión */
+}

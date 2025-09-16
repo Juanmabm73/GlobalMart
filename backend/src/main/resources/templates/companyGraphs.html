@@ -1,0 +1,28 @@
+<!-- Imports-->
+<link rel="stylesheet" href="/css/companyGraphs.css">
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-3d.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
+
+<!--html-->
+	<div style="font-size: 15px;">
+		{{>./components/nav}}
+	</div>
+		
+		<div id="container" style="height: 400px"></div>
+		
+		<div>
+
+			{{#dataList}}
+				<div id="{{key}}-data" data-="{{value}}">{{key}}: {{value}}</div>
+			{{/dataList}}
+			
+			
+		</div>
+	<div style="font-size: 15px;">
+		{{>./components/footer}}
+	</div>
+
+
+	<!--javascript-->
+<script src="/js/companyGraph.js"></script>

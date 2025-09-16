@@ -1,0 +1,37 @@
+<div class="container mt-4">
+    <div *ngIf="products.length === 0 && !loading" class="text-center my-5">
+        <h3>No products found</h3>
+        <p>Try searching for something else or check back later.</p>
+    </div>
+
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col" *ngFor="let product of products">
+            <div class="card h-100">
+                <div class="card-img-top-wrapper">
+                    <img *ngIf="product.imageBase64" [src]="product.imageBase64" class="card-img-top"
+                        alt="{{ product.name }}">
+                    <img *ngIf="!product.imageBase64" src="/images/product-placeholder.jpg" class="card-img-top"
+                        alt="Placeholder">
+                </div>
+                <div class="card-body">
+                    <h5 class="card-title">{{ product.name }}</h5>
+                    <p class="card-text">{{ product.description | slice:0:100 }}{{ product.description?.length > 100 ?
+                        '...' : '' }}</p>
+                    <p class="card-text"><strong>Price:</strong> {{ product.price | currency:'EUR' }}</p>
+                    <p class="card-text"><small class="text-muted">Company: {{ product.company }}</small></p>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a routerLink="/products/{{product.id}}" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Load more button
+    <div class="load_more_div" *ngIf="hasMoreProducts">
+        <button class="btn btn-outline-primary" [disabled]="loading" (click)="loadMore()">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+            Load More
+        </button>
+    </div>
+ -->
+</div>

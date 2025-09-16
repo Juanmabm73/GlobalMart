@@ -1,0 +1,60 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page | Global Mart</title>
+
+
+    <!-- /* Links */ -->
+    <link rel="stylesheet" href="/css/login.css">
+
+
+
+    <!-- /* Itim Font */ -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Itim&display=swap"
+        rel="stylesheet">
+
+</head>
+
+
+</head>
+
+<body>
+    <div class="form_div register_div">
+
+        <h3>Register</h3>
+
+        <form action="/register" method="POST" enctype="multipart/form-data">
+            <strong>Enter your Full name</strong><input class="form_input" type="text" name="name"
+                placeholder="Full Name"><br>
+            <strong>Enter your Username</strong><input class="form_input" type="text" name="username"
+                placeholder="Username"><br>
+            <strong>Enter your email</strong><input class="form_input" type="email" name="mail" placeholder="Email"><br>
+            <strong>Enter your password</strong><input class="form_input" type="password" name="password"
+                placeholder="Password"><br>
+            <strong>Choose a profile image</strong> <input type="file" id="image" name="image" accept="image/*"><br>
+
+            <div class="type_users_div">
+                <label>
+                    <input type="radio" name="role" value="USER" checked> Individual
+                </label>
+                <label>
+                    <input type="radio" name="role" value="COMPANY"> Empresa
+                </label>
+            </div>
+
+            <div class="buttons_div">
+                <button type="submit">Register</button>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+
+
+</html>

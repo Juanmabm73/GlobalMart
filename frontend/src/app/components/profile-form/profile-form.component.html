@@ -1,0 +1,90 @@
+<div class="main_div">
+  <div class="container">
+    <div *ngIf="successMessage" class="alert alert-success">
+      {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-danger">
+      {{ errorMessage }}
+    </div>
+
+    <h2>Edit Profile</h2>
+
+    <form [formGroup]="profileForm" (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+      <div class="form-group">
+        <label for="name">Name</label>
+        <input type="text" class="form-control" id="name" formControlName="name" required />
+      </div>
+
+      <div class="form-group">
+        <label for="username">Username</label>
+        <input type="text" class="form-control" id="username" formControlName="username" required />
+        <small *ngIf="originalUsername !== profileForm.get('username')?.value" class="text-warning">
+          Changing your username will require you to login again
+        </small>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" class="form-control" id="email" formControlName="email" required />
+      </div>
+
+      <!-- Campo de contraseña con botón para mostrar/ocultar -->
+      <div class="form-group">
+        <label for="password">New Password (leave empty to keep current)</label>
+        <div class="password-input-container">
+          <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password"
+            formControlName="password" placeholder="Leave empty to keep current password" />
+          <button type="button" class="password-toggle-btn" (click)="togglePasswordVisibility()">
+            <span class="password-eye" [class.visible]="showPassword">
+              👁️
+            </span>
+          </button>
+        </div>
+        <small *ngIf="profileForm.get('password')?.value" class="text-info">
+          Your password will be updated
+        </small>
+      </div>
+
+      <div class="button-group">
+        <button type="submit" [disabled]="profileForm.invalid || isLoading" class="btn btn-primary">
+          Update Profile
+        </button>
+        <button type="button" class="btn btn-secondary" routerLink="/">Cancel</button>
+      </div>
+    </form>
+
+    <div *ngIf="isLoading" class="loading-spinner">
+      <div class="spinner-border"></div>
+    </div>
+
+    <!-- Diálogo de confirmación (sin jQuery) -->
+    <div class="modal-overlay" *ngIf="showConfirmDialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Confirm Changes</h5>
+            <button type="button" class="close-button" (click)="cancelUpdate()">×</button>
+          </div>
+          <div class="modal-body">
+            <p>Are you sure you want to update your profile with these changes?</p>
+            <ul>
+              <li *ngIf="formChanges?.name">Name: {{originalValues?.name}} → {{profileForm.get('name')?.value}}</li>
+              <li *ngIf="formChanges?.username" class="text-warning">Username: {{originalValues?.username}} →
+                {{profileForm.get('username')?.value}}</li>
+              <li *ngIf="formChanges?.email">Email: {{originalValues?.email}} → {{profileForm.get('email')?.value}}
+              </li>
+              <li *ngIf="formChanges?.password" class="text-info">Password will be updated</li>
+            </ul>
+            <p *ngIf="formChanges?.username" class="warning-text">
+              <strong>Note:</strong> Changing your username will require you to login again with the new credentials.
+            </p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" (click)="cancelUpdate()">Cancel</button>
+            <button type="button" class="btn btn-primary" (click)="confirmUpdate()">Confirm Update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

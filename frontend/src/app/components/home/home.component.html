@@ -1,0 +1,32 @@
+<!-- Añadir el slider al inicio -->
+<app-slider></app-slider>
+
+<div class="main_products_div">
+    <div class="product_section_container">
+        <h2 class="section_title">New Products</h2>
+        <div class="products_container">
+            <div class="product" *ngFor="let product of lastProducts">
+                <a routerLink="/products/{{product.id}}">
+                    <img [src]="product.imageBase64" [alt]="product.name" class="product_image">
+                    <h3 class="product_title">{{product.name}}</h3>
+                    <p class="product_price">{{product.price}} €</p>
+                </a>
+            </div>
+            <p *ngIf="!lastProducts || lastProducts.length === 0">No hay productos nuevos disponibles</p>
+        </div>
+    </div>
+
+    <div class="product_section_container">
+        <h2 class="section_title">Most Viewed Products</h2>
+        <div class="products_container">
+            <div class="product" *ngFor="let product of mostViewedProducts">
+                <a routerLink="/products/{{product.id}}">
+                    <img [src]="product.imageBase64" [alt]="product.name" class="product_image">
+                    <h3 class="product_title">{{product.name}}</h3>
+                    <p class="product_price">{{product.price}} €</p>
+                </a>
+            </div>
+            <p *ngIf="!mostViewedProducts || mostViewedProducts.length === 0">No hay productos visualizados todavía</p>
+        </div>
+    </div>
+</div>

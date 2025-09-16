@@ -1,0 +1,78 @@
+<div class="container mt-4">
+    <div *ngIf="loading" class="text-center">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div *ngIf="!loading && product" class="row">
+        <div class="col-md-6">
+            <div class="product-image-container">
+                <img *ngIf="product.imageBase64" [src]="product.imageBase64" class="img-fluid product-image" alt="{{ product.name }}">
+                <img *ngIf="!product.imageBase64" src="assets/images/product-placeholder.jpg" class="img-fluid product-image" alt="Placeholder">
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h1>{{ product.name }}</h1>
+            <p class="text-muted">Company: {{ product.company }}</p>
+            <p class="text-muted">Category: {{ product.type }}</p>
+            <p class="product-price">{{ product.price | currency:'EUR' }}</p>
+
+            <div class="product-description mb-4">
+                <h3>Description</h3>
+                <p>{{ product.description }}</p>
+            </div>
+
+            <div class="stock-info mb-4">
+                <p *ngIf="product.stock > 0" class="in-stock">In Stock: {{ product.stock }} available</p>
+                <p *ngIf="product.stock <= 0" class="out-of-stock">Out of Stock</p>
+            </div>
+
+            <div class="d-grid gap-2">
+                <button *ngIf="!isAdmin && !isCompany" class="btn btn-primary" [disabled]="addingToCart || product.stock <= 0" (click)="addToCart()">
+                    <span *ngIf="addingToCart" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    Add to Cart
+                </button>
+                <button *ngIf="isAdmin" class="btn btn-warning" (click)="editProduct()">
+                    Edit Product
+                </button>
+                <button *ngIf="isAdmin" class="btn btn-danger btn-sm" (click)="deleteProduct()">
+                    Delete Product
+                </button>
+            </div>
+
+            <div class="reviews mt-5" *ngIf="product.reviews && product.reviews.length > 0">
+                <h3>Reviews</h3>
+                <div class="review-item" *ngFor="let review of product.reviews">
+                    <div class="d-flex justify-content-between">
+                        <p class="mb-1 fw-bold">{{ review.username }}</p>
+                        <div class="rating">
+                            <span *ngFor="let star of [1, 2, 3, 4, 5]">
+                                <i class="bi" [ngClass]="star <= review.calification ? 'bi-star-fill text-warning' : 'bi-star text-secondary'"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <p class="review-text">{{ review.comment }}</p>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="add-review mt-5" *ngIf="isUser">
+        <h3>Add a Review</h3>
+        <form [formGroup]="reviewForm" (ngSubmit)="submitReview()">
+            <div class="mb-3">
+                <label for="calification" class="form-label">Rating (1-5)</label>
+                <select id="calification" class="form-select" formControlName="calification">
+                    <option *ngFor="let star of [1, 2, 3, 4, 5]" [value]="star">{{ star }}</option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="comment" class="form-label">Comment</label>
+                <textarea id="comment" class="form-control" formControlName="comment" rows="3"></textarea>
+            </div>
+            <button type="submit" class="btn btn-success" [disabled]="reviewForm.invalid">Submit Review</button>
+        </form>
+    </div>
+</div>

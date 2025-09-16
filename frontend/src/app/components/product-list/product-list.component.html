@@ -1,0 +1,50 @@
+<div class="product-container">
+    <div *ngIf="type && type !== 'allProducts'" class="category-title">
+        <h1>{{ type }} Products</h1>
+    </div>
+    <div *ngIf="!type || type === 'allProducts'" class="all-products-title">
+        <h1>All Products</h1>
+    </div>
+
+    <div *ngIf="loading && products.length === 0" class="initial-loading-indicator">
+        <div class="spinner-border" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+
+    <div *ngIf="filteredProducts.length === 0 && !loading" class="no-products-message">
+        <h3>No products found</h3>
+        <p>Try searching for something else or check back later.</p>
+    </div>
+
+    <div class="products-grid">
+        <div class="product-column" *ngFor="let product of filteredProducts">
+            <div class="product-card">
+                <div class="product-image-wrapper">
+                    <img *ngIf="product.imageBase64" [src]="product.imageBase64" class="product-image"
+                        alt="{{ product.name }}">
+                    <img *ngIf="!product.imageBase64" src="/images/product-placeholder.jpg"
+                        class="product-placeholder-image" alt="Placeholder">
+                </div>
+                <div class="product-content">
+                    <h5 class="product-title">{{ product.name }}</h5>
+                    <p class="product-description">{{ product.description | slice:0:100 }}{{ product.description?.length
+                        > 100 ?
+                        '...' : '' }}</p>
+                    <p class="product-price"><strong>Price:</strong> {{ product.price | currency:'EUR' }}</p>
+                    <p class="product-company"><small>Company: {{ product.company }}</small></p>
+                </div>
+                <div class="product-footer">
+                    <a routerLink="/products/{{product.id}}" class="product-details-btn">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="load-more-container" *ngIf="hasMoreProducts">
+        <button class="load-more-btn" [disabled]="loading" (click)="loadMore()">
+            <span *ngIf="loading" class="loading-spinner" role="status" aria-hidden="true"></span>
+            Load More
+        </button>
+    </div>
+</div>
