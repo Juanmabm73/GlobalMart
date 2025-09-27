@@ -1,0 +1,28 @@
+# Variables de entorno y archivos locales
+.env
+.env.local
+application-local.properties
+
+# Logs
+*.log
+
+# Base de datos
+*.db
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Backend
+target/
+*.jar
+
+# Frontend
+node_modules/
+dist/
+.angular/
